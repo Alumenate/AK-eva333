@@ -256,7 +256,7 @@ static void cpulimit_late_resume(struct early_suspend *handler)
 static struct early_suspend cpulimit_suspend = {
        .suspend = cpulimit_early_suspend,
        .resume = cpulimit_late_resume,
-       .level = EARLY_SUSPEND_LEVEL_BLANK_SCREEN  1,
+       .level = EARLY_SUSPEND_LEVEL_BLANK_SCREEN + 1,
 };
 
 static bool calc_checksum(int intArr[]) {
