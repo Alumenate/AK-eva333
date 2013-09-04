@@ -2191,9 +2191,12 @@ static void powersave_early_suspend(struct early_suspend *handler)
 
 	if (cpufreq_scaling_disabled)
 		return;
+
 	for_each_online_cpu(cpu) {
 		struct cpufreq_policy *cpu_policy, new_policy;
 
+                if (cpu)
+                        cpu_down(cpu);
 		cpu_policy = cpufreq_cpu_get(cpu);
 		if (!cpu_policy)
 			continue;
@@ -2219,7 +2222,8 @@ static void powersave_late_resume(struct early_suspend *handler)
 
 	if (cpufreq_scaling_disabled)
 		return;
-	for_each_online_cpu(cpu) {
+
+	for_each_possible_cpu(cpu) {
 		struct cpufreq_policy *cpu_policy, new_policy;
 
 		cpu_policy = cpufreq_cpu_get(cpu);
