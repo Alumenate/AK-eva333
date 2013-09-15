@@ -2351,7 +2351,7 @@ static void touch_late_resume(struct early_suspend *h)
 	}
 
 #ifdef CONFIG_TOUCHSCREEN_SWEEP2WAKE
-        if ((!s2w_switch) || !wake_from_s2w) {
+        if (!s2w_switch) {
 #endif
 	        touch_power_cntl(ts, ts->pdata->role->resume_pwr);
 
@@ -2389,7 +2389,6 @@ static void touch_late_resume(struct early_suspend *h)
 			}
 		}
 	}
-	wake_from_s2w = false;
 #endif
 }
 #endif	/* early suspend */
