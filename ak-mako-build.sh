@@ -41,26 +41,24 @@ echo "Show: AK Mako Settings"
 echo "------------------------"
 echo -e "${restore}"
 
-INIT_DIR=${HOME}/android/AK-eva333-ramdisk/ramdisk-4.3.x
-MODULES_DIR=${HOME}/android/AK-eva333-ramdisk/cwm/system/lib/modules
+MODULES_DIR=${HOME}/android/AK-anykernel/cwm/system/lib/modules
 KERNEL_DIR=`pwd`
-OUTPUT_DIR=${HOME}/android/AK-eva333-ramdisk/zip
-CWM_DIR=${HOME}/android/AK-eva333-ramdisk/cwm
+OUTPUT_DIR=${HOME}/android/AK-anykernel/zip
+CWM_DIR=${HOME}/android/AK-anykernel/cwm
 ZIMAGE_DIR=${HOME}/android/AK-eva333/arch/arm/boot
 CWM_MOVE=/home/anarkia1976/Desktop/AK-Kernel
-RAM_DIR=${HOME}/android/AK-eva333-ramdisk
+ZIMAGE_ANYKERNEL=${HOME}/android/AK-anykernel/cwm/kernel
 
 echo -e "${red}"; echo "COMPILING VERSION:"; echo -e "${blink_red}"; echo "$LOCALVERSION"; echo -e "${restore}"
 echo "CROSS_COMPILE="$CROSS_COMPILE
 echo "ARCH="$ARCH
-echo "INIT_DIR="$INIT_DIR
 echo "MODULES_DIR="$MODULES_DIR
 echo "KERNEL_DIR="$KERNEL_DIR
 echo "OUTPUT_DIR="$OUTPUT_DIR
 echo "CWM_DIR="$CWM_DIR
 echo "ZIMAGE_DIR="$ZIMAGE_DIR
 echo "CWM_MOVE="$CWM_MOVE
-echo "RAM_DIR="$RAM_DIR
+echo "ZIMAGE_ANYKERNEL="$ZIMAGE_ANYKERNEL
 
 echo -e "${green}"
 echo "-------------------------"
@@ -82,15 +80,7 @@ rm `echo $MODULES_DIR"/*"`
 find $KERNEL_DIR -name '*.ko' -exec cp -v {} $MODULES_DIR \;
 echo
 
-cd $INIT_DIR
-#find . \( ! -regex '.*/\..*' \) | cpio -o -H newc -R root:root | xz --check=crc32 --lzma2=dict=8MiB > ../initrd.img
-find . \( ! -regex '.*/\..*' \) | cpio -o -H newc -R root:root | gzip -9 > ../initrd.img
-
-cd ../
-cp -vr $ZIMAGE_DIR/zImage .
-./mkbootimg --kernel zImage --ramdisk initrd.img --cmdline 'console=ttyHSL0,115200,n8 androidboot.hardware=mako lpj=67677' --base 0x80200000 --pagesize 2048 --ramdiskaddr 0x81800000 -o boot.img
-
-cp -vr boot.img $CWM_DIR
+cp -vr $ZIMAGE_DIR/zImage $ZIMAGE_ANYKERNEL
 echo
 
 cd $CWM_DIR
@@ -105,13 +95,6 @@ echo -e "${restore}"
 
 cp -vr $OUTPUT_DIR/`echo $AK_VER`.zip $CWM_MOVE
 echo
-
-rm -rf $RAM_DIR/zImage
-rm -rf $RAM_DIR/initrd.img
-rm -rf $RAM_DIR/boot.img
-
-cd $INIT_DIR
-git reset --hard
 
 cd $KERNEL_DIR
 
