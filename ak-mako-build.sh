@@ -85,10 +85,6 @@ echo
 cp -vr $ZIMAGE_DIR/zImage $ZIMAGE_ANYKERNEL
 echo
 
-cd $ANYKERNEL_DIR
-git reset --hard
-echo
-
 cd $CWM_DIR
 zip -r `echo $AK_VER`.zip *
 mv  `echo $AK_VER`.zip $OUTPUT_DIR
@@ -100,6 +96,10 @@ echo "-------------------------"
 echo -e "${restore}"
 
 cp -vr $OUTPUT_DIR/`echo $AK_VER`.zip $CWM_MOVE
+echo
+
+cd $ANYKERNEL_DIR
+git reset --hard
 echo
 
 cd $KERNEL_DIR
