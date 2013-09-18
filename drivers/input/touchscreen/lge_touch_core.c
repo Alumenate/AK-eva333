@@ -2158,11 +2158,11 @@ static int touch_probe(struct i2c_client *client,
 
 	/* accuracy solution */
 	ts->accuracy_filter.ignore_pressure_gap = 5;
-	ts->accuracy_filter.delta_max = 100;
-	ts->accuracy_filter.max_pressure = 255;
-	ts->accuracy_filter.time_to_max_pressure = one_sec / 20;
-	ts->accuracy_filter.direction_count = one_sec / 6;
-	ts->accuracy_filter.touch_max_count = one_sec / 2;
+	ts->accuracy_filter.delta_max = 50;
+	ts->accuracy_filter.max_pressure = 55;
+	ts->accuracy_filter.time_to_max_pressure = 1;
+	ts->accuracy_filter.direction_count = 8;
+	ts->accuracy_filter.touch_max_count = 4;
 
 #ifdef CONFIG_TOUCHSCREEN_LGE_BOOST
 	setup_timer(&boost_timer, handle_boost, 0);
