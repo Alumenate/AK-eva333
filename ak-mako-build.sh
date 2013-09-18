@@ -48,6 +48,7 @@ CWM_DIR=${HOME}/android/AK-anykernel/cwm
 ZIMAGE_DIR=${HOME}/android/AK-eva333/arch/arm/boot
 CWM_MOVE=/home/anarkia1976/Desktop/AK-Kernel
 ZIMAGE_ANYKERNEL=${HOME}/android/AK-anykernel/cwm/kernel
+ANYKERNEL_DIR=${HOME}/android/AK-anykernel
 
 echo -e "${red}"; echo "COMPILING VERSION:"; echo -e "${blink_red}"; echo "$LOCALVERSION"; echo -e "${restore}"
 echo "CROSS_COMPILE="$CROSS_COMPILE
@@ -59,6 +60,7 @@ echo "CWM_DIR="$CWM_DIR
 echo "ZIMAGE_DIR="$ZIMAGE_DIR
 echo "CWM_MOVE="$CWM_MOVE
 echo "ZIMAGE_ANYKERNEL="$ZIMAGE_ANYKERNEL
+echo "ANYKERNEL_DIR="$ANYKERNEL_DIR
 
 echo -e "${green}"
 echo "-------------------------"
@@ -81,6 +83,10 @@ find $KERNEL_DIR -name '*.ko' -exec cp -v {} $MODULES_DIR \;
 echo
 
 cp -vr $ZIMAGE_DIR/zImage $ZIMAGE_ANYKERNEL
+echo
+
+cd $ANYKERNEL_DIR
+git reset --hard
 echo
 
 cd $CWM_DIR
