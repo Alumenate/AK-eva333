@@ -1632,6 +1632,12 @@ config CPU_ULTIMATE_OVERCLOCK
 	help
 		Krait overclocking up to 2.052 GHz
 
+config USERSPACE_VOLTAGE_CONTROL
+	bool "Enable Userspace CPU Voltage Control"
+	default y
+	help
+	  Userspace Voltage Control
+
 config INTELLI_PLUG
 	bool "Enable intelli-plug cpu hotplug driver"
 	default n
