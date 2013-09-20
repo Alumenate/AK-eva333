@@ -84,7 +84,6 @@
 #include <asm/kexec.h>
 #endif
 
-
 #include "msm_watchdog.h"
 #include "board-mako.h"
 #include "spm.h"
@@ -683,7 +682,6 @@ no_dmm:
 #ifdef CONFIG_KEXEC_HARDBOOT
 	memblock_remove(KEXEC_HB_PAGE_ADDR, SZ_4K);
 #endif
-}
 
 static int apq8064_change_memory_power(u64 start, u64 size,
 	int change_type)
