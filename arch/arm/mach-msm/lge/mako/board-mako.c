@@ -80,6 +80,11 @@
 #include <asm/system_info.h>
 #include <asm/system_misc.h>
 
+#ifdef CONFIG_KEXEC_HARDBOOT
+#include <asm/kexec.h>
+#endif
+
+
 #include "msm_watchdog.h"
 #include "board-mako.h"
 #include "spm.h"
@@ -673,6 +678,11 @@ static void __init locate_unstable_memory(void)
 no_dmm:
 	apq8064_reserve_info.low_unstable_address = high;
 	apq8064_reserve_info.max_unstable_size = 0;
+}
+
+#ifdef CONFIG_KEXEC_HARDBOOT
+	memblock_remove(KEXEC_HB_PAGE_ADDR, SZ_4K);
+#endif
 }
 
 static int apq8064_change_memory_power(u64 start, u64 size,
